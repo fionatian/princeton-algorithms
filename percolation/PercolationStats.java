@@ -21,6 +21,10 @@ public class PercolationStats {
 
 
     public PercolationStats(int n, int trials) {
+        if (t <= 0 || n <= 0) {
+            throw new IllegalArgumentException(
+                    "Illegal arguments! Both n and t need to be positive.");
+        }
         numTrials = trials;
         thresholds = new double[numTrials];
         final int numSites = n * n;
@@ -94,10 +98,6 @@ public class PercolationStats {
         if (args.length == 2) {
             n = Integer.parseInt(args[0]);
             t = Integer.parseInt(args[1]);
-            if (t <= 0 || n <= 0) {
-                throw new IllegalArgumentException(
-                        "Illegal arguments! Both n and t need to be positive.");
-            }
         }
         else {
             throw new IllegalArgumentException(
