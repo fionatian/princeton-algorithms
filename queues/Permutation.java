@@ -29,14 +29,17 @@ public class Permutation {
         //
 
 
+        if (k == 0) return;
+
         // Option 2: For an extra challenge and a small amount of extra credit, use only one Deque or RandomizedQueue object of maximum size at most k.
         for (int i = 0; !StdIn.isEmpty(); i++) {
             int r = StdRandom.uniform(i + 1);
+            String s = StdIn.readString();
             if (r < k) {
                 if (rq.size() == k) {
                     rq.dequeue();
                 }
-                rq.enqueue(StdIn.readString());
+                rq.enqueue(s);
             }
         }
 

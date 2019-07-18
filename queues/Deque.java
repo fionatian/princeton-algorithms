@@ -27,7 +27,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            if (current == null) {
+            if (!hasNext()) {
                 throw new NoSuchElementException("deque is empty!");
             }
             Item item = current.item;
@@ -107,6 +107,7 @@ public class Deque<Item> implements Iterable<Item> {
 
         Item item = first.item;
         first = first.next;
+        first.previous = null;
         size--;
 
         //last element to remove
@@ -123,6 +124,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Item item = last.item;
         last = last.previous;
+        last.next = null;
         size--;
 
         //last element to remove
@@ -150,19 +152,10 @@ public class Deque<Item> implements Iterable<Item> {
 
 
         StdOut.println("removeFirst: " + dq.removeFirst());
-        StdOut.println("removeFirst: " + dq.removeFirst());
-        StdOut.println("removeFirst: " + dq.removeFirst());
-        StdOut.println("removeFirst: " + dq.removeFirst());
 
-        dq.addFirst("1");
-        dq.addFirst("2");
-        dq.addLast("l1");
-        dq.addLast("l2");
-
-        StdOut.println("removeFirst: " + dq.removeFirst());
-        StdOut.println("removeLast: " + dq.removeLast());
-        StdOut.println("removeLast: " + dq.removeLast());
-        StdOut.println("removeLast: " + dq.removeLast());
+        for (String s : dq) {
+            StdOut.println(s);
+        }
 
 
     }
