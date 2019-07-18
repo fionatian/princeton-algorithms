@@ -21,7 +21,7 @@ public class PercolationStats {
 
 
     public PercolationStats(int n, int trials) {
-        if (t <= 0 || n <= 0) {
+        if (trials <= 0 || n <= 0) {
             throw new IllegalArgumentException(
                     "Illegal arguments! Both n and t need to be positive.");
         }
