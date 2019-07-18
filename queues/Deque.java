@@ -107,12 +107,15 @@ public class Deque<Item> implements Iterable<Item> {
 
         Item item = first.item;
         first = first.next;
-        first.previous = null;
+
         size--;
 
         //last element to remove
         if (size == 0) {
             last = null;
+        }
+        else {
+            first.previous = null;
         }
 
         return item;
@@ -124,12 +127,15 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Item item = last.item;
         last = last.previous;
-        last.next = null;
+
         size--;
 
         //last element to remove
         if (size == 0) {
             first = null;
+        }
+        else {
+            last.next = null;
         }
 
         return item;
@@ -137,6 +143,20 @@ public class Deque<Item> implements Iterable<Item> {
 
 
     public static void main(String[] args) {
+
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.isEmpty();
+        deque.isEmpty();
+        deque.isEmpty();
+        deque.addLast(4);
+        deque.removeLast();
+
+        deque.isEmpty();
+        deque.isEmpty();
+        deque.isEmpty();
+        deque.addFirst(4);
+        deque.removeFirst();
+
         Deque<String> dq = new Deque<String>();
         dq.addFirst("a");
         dq.addFirst("b");
