@@ -6,8 +6,12 @@ import edu.princeton.cs.algs4.StdDraw;
 import java.util.LinkedList;
 
 public class KdTree {
+
+    static final double scale = 1;
+
     private Node root;
     private int size;
+    private double minDistance;
 
     private class Node {
         private Point2D p;
@@ -25,6 +29,7 @@ public class KdTree {
 
     public KdTree() {
         size = 0;
+
     }
 
     public boolean isEmpty() {
@@ -40,7 +45,7 @@ public class KdTree {
             throw new IllegalArgumentException("calls insert() with a null point");
         }
         if (!contains(p)) {
-            root = insert(root, p, 0, 0, 1, 1, true);
+            root = insert(root, p, 0, 0, scale, scale, true);
             size++;
         }
     }
@@ -164,20 +169,35 @@ public class KdTree {
 
     public Point2D nearest(Point2D p) {
         if (p == null) throw new IllegalArgumentException();
-        // if (set.isEmpty()) return null;
-        // double minDis = Double.MAX_VALUE;
-        Point2D nearest = null;
-        // for (Point2D q : set) {
-        //     double qDis = p.distanceTo(q);
-        //     if (qDis < minDis) {
-        //         minDis = qDis;
-        //         nearest = q;
-        //     }
-        // }
+        if (isEmpty()) return null;
+
+        minDistance = scale * scale * 2;
+        Point2D nearest = nearestSearch(root, p, null);
 
         return nearest;
     }
 
+    private Point2D nearestSearch(Node node, Point2D p, Point2D nearestFound) {
+        double cur;
+        if (node != null) {
+            if (node.rec.distanceTo(p) < minDistance) {
+                cur = p.distanceTo(node.p);
+                if (cur < minDistance) {
+                    minDistance = cur;
+                    nearestFound = node.p;
+                }
+                if ((node.byX && node.p.x() < p.x()) || (!node.byX && node.p.y() < p.y())) {
+                    nearestFound = nearestSearch(node.right, p, nearestFound);
+                    nearestFound = nearestSearch(node.left, p, nearestFound);
+                }
+                else {
+                    nearestFound = nearestSearch(node.left, p, nearestFound);
+                    nearestFound = nearestSearch(node.right, p, nearestFound);
+                }
+            }
+        }
+        return nearestFound;
+    }
 
     public static void main(String[] args) {
 
