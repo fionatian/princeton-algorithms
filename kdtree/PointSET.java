@@ -27,10 +27,16 @@ public class PointSET {
     }
 
     public void insert(Point2D p) {
+        if (p == null) {
+            throw new IllegalArgumentException("argument to insert() is null");
+        }
         set.add(p);
     }
 
     public boolean contains(Point2D p) {
+        if (p == null) {
+            throw new IllegalArgumentException("argument to contains() is null");
+        }
         return set.contains(p);
 
     }
